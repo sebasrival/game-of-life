@@ -1,38 +1,47 @@
-.App {
-  text-align: center;
+body {
+    background: #141E30;
+    background: -webkit-linear-gradient(to right, #243B55, #141E30);
+    background: linear-gradient(to right, #243B55, #141E30);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.board {
+    display: flex;
+    flex-wrap: wrap;
+    width: 700px;
+    box-shadow: 0px 0px 33px 5px rgba(0, 0, 0, 0.5);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.cell {
+    border: 0.2px solid grey;
+    width: 12px;
+    height: 12px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.cell:hover {
+    background-color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.alive {
+    background-color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.content {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.title {
+    text-align: center;
+    padding: 50px;
+    color: white;
+    font-size: x-large;
+    font-family: 'Press Start 2P';
+}
+
+.title p {
+    margin: 0;
+    text-shadow: 10px 10px 8px black;
 }
