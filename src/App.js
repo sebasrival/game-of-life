@@ -7,20 +7,47 @@ import Cells from './components/Cells';
 function App() {
 
     const [col, setCol] = useState(70)
-    const [row, setRow] = useState(30)
+    const [row, setRow] = useState(50)
     const [board, setBoard] = useBoard(row, col)
-    const [gameState, setGameState] = useState(false)
     const tam = col * 14
 
+    function cloneArray(grid) {
+        const newGrid = [...grid]
+        newGrid.forEach((row, rowIndex) => newGrid[rowIndex] = [...row])
+        return newGrid
+    }
+
     const start = () => {
-        setGameState(true)
-        console.log(gameState)
+        console.log(board)
+        period()
+        console.log(board)
     }
 
     const pause = () => {
-        setGameState(false)
-        console.log(gameState)
+        console.log(board)
     }
+
+    const period = () =>{
+        let auxBoard = cloneArray(board)
+        for (let i = 0; i < row; i++) {
+            for (let j = 0; j < col; j++) {
+                let neighbour = (auxBoard[Math.abs(i - 1) % row][Math.abs(j - 1) % col] + 
+                            auxBoard[Math.abs(i - 1) % row][j] +
+                            auxBoard[Math.abs(i - 1) % row][Math.abs(j + 1) % col] +
+                            auxBoard[i][Math.abs(j - 1) % col] +
+                            auxBoard[i][Math.abs(j + 1) % col] +
+                            auxBoard[Math.abs(i + 1) % row][Math.abs(j - 1) % col] +
+                            auxBoard[Math.abs(i + 1) % row][j] +
+                            auxBoard[Math.abs(i + 1) % row][Math.abs(j + 1) % col])
+                            console.log(neighbour)
+                if (auxBoard[i][j] == false && neighbour == 3 ) { auxBoard[i][j] = true; console.log(auxBoard[i][j])}
+                if (auxBoard[i][j] == true && (neighbour < 2 && neighbour > 3 )) { auxBoard[i][j] = false }
+            }
+            
+        }
+        setBoard(auxBoard)
+    }
+    
 
     return (
         <main>
