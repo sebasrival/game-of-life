@@ -6,10 +6,11 @@ import Board from './components/Board';
 
 function App() {
 
-    const [rows, setRow] = useState(30)
-    const [cols, setCol] = useState(70)
+    const [rows, setRow] = useState(40)
+    const [cols, setCol] = useState(100)
     const [board, setBoard] = useBoard(rows, cols)
     const [gameState, SetStateGame] = useState(false)
+    const [periodos, setPeriodos] = useState(0)
     const velocidad = 200
     const tam = cols * 14
 
@@ -31,9 +32,27 @@ function App() {
     }
 
    
+    const clear = () => {
+        SetStateGame(false)
+        let auxBoard = Array(rows).fill().map(() => Array(cols).fill(false))
+        setBoard(auxBoard)
+        setPeriodos(0)
+    }
 
     const pause = () => {
         SetStateGame(false)
+    }
+
+    const seed = () => {
+        SetStateGame(false)
+        let auxBoard = arrayCopy(board)
+        auxBoard.map((row, i)=> row.map((col, j)=>{
+            if (Math.floor(Math.random() * 4) === 1) {
+                auxBoard[i][j] = true
+            }
+        }))
+        setBoard(auxBoard)
+        setPeriodos(0)
     }
 
     const period = () => {
@@ -53,6 +72,7 @@ function App() {
             }
             
         }
+        setPeriodos(periodos+1)
         setBoard(auxBoard)
     }
 
@@ -66,8 +86,11 @@ function App() {
                     <nav className='button-box'>
                         <button className='button' onClick={() => { SetStateGame(true)}}>Start</button>
                         <button className='button' onClick={() => { SetStateGame(false)}}>Pause</button>
+                        <button className='button' onClick={() => { clear()}}>Clear</button>
+                        <button className='button' onClick={() => { seed()}}>Seed</button>
                     </nav>
                     <Board board={board} rows={rows} cols={cols} style={{width: tam + 'px'}} selectCell={selectCell}/>
+                    <header className='title'><p>Evolution: {periodos}</p></header>
                 </div>
             </div>
         </main>
